@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="file" id="file" oninput="fileChange(this)" />
+    <script src="./build/index.js"></script>
+    <!-- <script src="./index.js"></script> -->
+    <script>
+      function fileChange(e) {
+        const file = e.files[0];
+        const fileShard = new FileShard(file);
+        fileShard.init(file, 2 * 1024 * 1024);
+        console.log(fileShard.getAllChunks());
+        fileShard.getAllChunkHash().then((res) => {
+          console.log(res);
+        });
+        fileShard.getFileHash().then((res) => {
+          console.log(res);
+        });
+      }
+    </script>
+  </body>
+</html>
