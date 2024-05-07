@@ -1,6 +1,7 @@
 const path = require("path");
 const TerserWebpackPlugin = require("terser-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const webpack = require('webpack');
 
 module.exports = {
   mode: "production",
@@ -22,21 +23,38 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
+          loader: "babel-loader",
           options: {
-            presets: ['@babel/preset-env']
-          }
-        }
-      }
+            presets: ["@babel/preset-env"],
+          },
+        },
+      },
     ],
   },
 
-  plugins: [new CleanWebpackPlugin()],
+  plugins: [
+    new CleanWebpackPlugin(),
+    new webpack.ProgressPlugin(), // 显示打包进度条
+  ],
 
   optimization: {
     // 一般在生产环境中用到
+    minimize: true,
     minimizer: [
-      new TerserWebpackPlugin(),
+      new TerserWebpackPlugin({
+        terserOptions: {
+          compress: {
+            // 生产环境禁用console
+            drop_console: true,
+            // 去除debugger
+            drop_debugger: true,
+          },
+          output: {
+            comments: false, // 去掉注释内容
+          },
+        },
+        extractComments: false, // 是否将注释提取到单独的文件中
+      }),
     ],
   },
 };
