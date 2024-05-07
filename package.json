@@ -3,6 +3,7 @@
   "version": "1.0.1",
   "description": "大文件分片",
   "main": "build/index.js",
+  "files": [],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --mode production"
