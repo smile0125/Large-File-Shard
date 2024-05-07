@@ -1,6 +1,6 @@
 {
   "name": "large-file-shard",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "大文件分片",
   "main": "build/index.js",
   "files": [],
